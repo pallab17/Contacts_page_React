@@ -6,6 +6,31 @@ function App() {
     lName: "",
     email: ""
   });
+  // prevDetails r modhe contact r initial content ta ache
+  function handleChange(event) {
+    const { value, name } = event.target;
+    setContact((prevDetails) => {
+      if (name === "fName") {
+        return {
+          fName: value,
+          lName: prevDetails.lName,
+          email: prevDetails.email
+        };
+      } else if (name === "lName") {
+        return {
+          fName: prevDetails.fName,
+          lName: value,
+          email: prevDetails.email
+        };
+      } else if (name === "email") {
+        return {
+          fName: prevDetails.fName,
+          lName: prevDetails.lName,
+          email: value
+        };
+      }
+    });
+  }
 
   return (
     <div className="container">
@@ -14,9 +39,24 @@ function App() {
       </h1>
       <p>{contact.email}</p>
       <form>
-        <input name="fName" placeholder="First Name" />
-        <input name="lName" placeholder="Last Name" />
-        <input name="email" placeholder="Email" />
+        <input
+          onChange={handleChange}
+          value={contact.fName}
+          name="fName"
+          placeholder="First Name"
+        />
+        <input
+          onChange={handleChange}
+          value={contact.lName}
+          name="lName"
+          placeholder="Last Name"
+        />
+        <input
+          onChange={handleChange}
+          value={contact.email}
+          name="email"
+          placeholder="Email"
+        />
         <button>Submit</button>
       </form>
     </div>
